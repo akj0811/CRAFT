@@ -1,5 +1,9 @@
 import tensorflow as tf
 
+# Usage : loss(data)
+# Input : List of arrays of region_true, affinity_true, region_pred, affinity_pred, confidence map (Pixelwise)
+# return : A scalar MSE Loss
+
 def loss(data):
     region_true, affinity_true, region_pred, affinity_pred, confidence = data
 
