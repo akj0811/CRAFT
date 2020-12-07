@@ -20,14 +20,15 @@ def train(synth_x, char_boxes, real_x, real_y):
         model.fit(synth_x, [region_score, affinity_score], epochs = 1)
         with tf.GradientTape() as tape:
             pseudo_region = model(real_x)[0]
-            pseudo_char_boxes = [gen(img) for img in pseudo_region]
-            pseudo_region_score = np.array([g.gen((h//2, w//2), x) for x in pseudo_char_boxes])
-            pseudo_affinity_boxes = [cal_affinity_boxes(y_ for y in pseudo_char_boxes)]
+            pseudo_char_conf = [gen(img, word_boxes, words) for img in pseudo_region] #pass word annotations also in this
+                                                                                       #returns char boxes and confidence map
+            pseudo_region_score = np.array([g.gen((h//2, w//2), x) for x in pseudo_char_conf[:,0]])
+            pseudo_affinity_boxes = [cal_affinity_boxes(y_ for y in pseudo_char_conf[:,0])]
             pseudo_affinity_score = [g.gen((h//2, w//2, x) for x in pseudo_affinity_boxes)]
             pseudo_affinity_score = np.array(pseudo_affinity_boxes)
             pred = model(real_x)
-            confidence = [conf(pseudo_char_boxes[i], real_y[i]) for i in range(len(real_y))]
-            total_loss = loss(pseudo_region_score, pseudo_affinity_score, pred[0], pred[1], confidence)
+#             confidence = [conf(pseudo_char_conf[i,0], real_y[i]) for i in range(len(real_y))]
+            total_loss = loss(pseudo_region_score, pseudo_affinity_score, pred[0], pred[1], pseudo_char_conf[:,1])
             final_loss = tf.sum(total_loss)
         
         gradients = tape.gradient(final_loss, model.trainable_weights)
