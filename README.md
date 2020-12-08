@@ -24,7 +24,6 @@ The follwing are the details of the various code files present in the repository
 * **pseudo_util.ipyb** - It implements the Pseudo ground truth generation pipeline which is needed since the framework is weakly supervised. It returns the lables for the images based on an interim model.
 * **train.py** - It implements the training pipline that essentially clubs the utilities implemented. It merges the weak supervision as well as the training on synthetic dataset.
 * **inference.py** - It implements the inference pipeline for generating heatmaps for any given image containing text instances.
-* **pre_processing.ipynb** - Since, synthtext dataset doesn't directly provide us the character boxes for a particular word in the image. We need to pre-process the dataset before feeding the data to our model.
 
 ## Datasets 
 
