@@ -25,3 +25,8 @@ The follwing are the details of the various code files present in the repository
 * **train.py** - It implements the training pipline that essentially clubs the utilities implemented. It merges the weak supervision as well as the training on synthetic dataset.
 * **inference.py** - It implements the inference pipeline for generating heatmaps for any given image containing text instances.
 * **pre_processing.ipynb** - Since, synthtext dataset doesn't directly provide us the character boxes for a particular word in the image. We need to pre-process the dataset before feeding the data to our model.
+
+## Datasets 
+
+* [SynthText](https://www.robots.ox.ac.uk/~vgg/data/scenetext/)
+* [ICDAR Dataset](https://rrc.cvc.uab.es/?ch=15&com=downloads)
